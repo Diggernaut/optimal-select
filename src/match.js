@@ -24,6 +24,14 @@ const defaultIgnore = {
   }
 }
 
+export const initOptions = (options = {}) => ({
+  ...options,
+  root: options.root || document,
+  skip: options.skip || null,
+  priority: options.priority || ['id', 'class', 'href', 'src'],
+  ignore: options.ignore || {}
+})
+
 /**
  * Get the path of the element
  *
@@ -32,13 +40,7 @@ const defaultIgnore = {
  * @return {Array.<Pattern>}       - [description]
  */
 export default function match (node, options = {}) {
-  options = {
-    root: document,
-    skip: null,
-    priority: ['id', 'class', 'href', 'src'],
-    ignore: {},
-    ...options
-  }
+  options = initOptions(options)
   const { root, skip, ignore, format } = options
 
   const path = []
