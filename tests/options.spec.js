@@ -1,7 +1,7 @@
 import chai, { expect } from 'chai'
 import chaiSnapshot from 'mocha-chai-snapshot'
 
-import { select } from '../src'
+import { select, initOptions } from '../src'
 import { initDOM, createHTML } from './helpers'
 
 chai.use(chaiSnapshot)
@@ -16,7 +16,21 @@ const contains = `
 `
 
 describe('Options', function() {
-  describe('Contains (jQuery)', function() {
+  describe('initOptions', function() {
+    it('initializes default options correctly', () => {
+      const defaultOptions = {
+        root: document,
+        skip: null,
+        priority: ['id', 'class', 'href', 'src'],
+        ignore: {}
+      }
+      expect(initOptions()).deep.to.eq(defaultOptions)
+      expect(initOptions({})).deep.to.eq(defaultOptions)
+      expect(initOptions({ root: undefined, skip: undefined, priority: undefined, ignore: undefined })).deep.to.eq(defaultOptions)
+    })
+  })
+
+  describe('contains (jQuery)', function() {
     it('allows to disable usage of contains', function() {
       const document = initDOM(createHTML(contains))
       const elements = document.body.querySelectorAll('*')
