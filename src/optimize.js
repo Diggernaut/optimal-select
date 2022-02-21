@@ -259,8 +259,8 @@ const optimizeClasses = (pre, current, post, elements, select, toString) => {
         if (elements.some((element) => reference.contains(element))) {
           // TODO:
           // - check using attributes + regard excludes
-          const description = createPattern({ tagName: reference.tagName })
-          var pattern = toString.path([...pre, createPattern({ tagName: reference.tagName }), ...post])
+          const description = createPattern({ tag: reference.tagName })
+          var pattern = toString.path([...pre, description, ...post])
           var matches = select(pattern)
           if (compareResults(matches, elements)) {
             current = description
