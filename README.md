@@ -75,8 +75,9 @@ var selector = select(element, {
     // define simplified ignore patterns as a boolean/string/number/regex
     tag: 'div',
 
-    // ignore text content (set to function, string, etc. to ignore specific texts)
-    contains: true
+    // evaluate text content (set to function, string, etc. to ignore specific texts)
+    // note: by default, text content is not evaluated
+    contains: false
   },
 
   // output format: 'css' - CSS, 'xpath' - XPath, 'jquery' - jQuery (default is CSS)

@@ -23,7 +23,7 @@ describe('Baseline reference', function() {
       describe('generates selector string', function() {
         examples.forEach(example => {
           it(example.match, function() {
-            expect(candidate.generate(example.element, { root: doc })).to.matchSnapshot(this)
+            expect(candidate.generate(example.element,  { ignore: { contains: false }, root: doc })).to.matchSnapshot(this)
           })
         })
       })
@@ -31,7 +31,7 @@ describe('Baseline reference', function() {
       describe('selector string is valid, unique and points to correct element', function() {
         examples.forEach(example => {
           it(example.match, function() {
-            const selector = candidate.generate(example.element, { root: doc })
+            const selector = candidate.generate(example.element,  { ignore: { contains: false }, root: doc })
             const found = candidate.check(selector, doc)
 
             expect(found).to.have.length(1)

@@ -21,7 +21,8 @@ const defaultIgnore = {
       'data-reactid',
       'data-react-checksum'
     ].indexOf(attributeName) > -1
-  }
+  },
+  contains: () => true
 }
 
 export const initOptions = (options = {}) => ({
@@ -346,7 +347,7 @@ const checkText = (element, path, { ignore }, select, toString, nested) => {
 
   while (texts.length > 0) {
     const text = texts.shift()
-    if (checkIgnore(ignore.contains, null, text)) {
+    if (checkIgnore(ignore.contains, null, text, defaultIgnore.contains)) {
       break
     }
     contains.push(`contains("${text}")`)
