@@ -35,18 +35,16 @@ describe('Options', function() {
       const document = initDOM(createHTML(contains))
       const elements = document.body.querySelectorAll('*')
       const options = { root: document.body, format: 'jquery' }
-
-      expect(select(elements[0], options)).to.equal('body > div:contains("first")')
-      expect(select(elements[1], options)).to.equal('body > div:contains("second")')
-      expect(select(elements[2], options)).to.equal('body > div:contains("third")')
-      expect(select(elements[3], options)).to.equal('body > div:contains("forth one")')
-
-      options.ignore = { contains: true }
       expect(select(elements[0], options)).to.equal('body > div:nth-child(1)')
       expect(select(elements[1], options)).to.equal('body > div:nth-child(2)')
       expect(select(elements[2], options)).to.equal('body > div:nth-child(3)')
       expect(select(elements[3], options)).to.equal('body > div:nth-child(4)')
-
+      
+      options.ignore = { contains: false }
+      expect(select(elements[0], options)).to.equal('body > div:contains("first")')
+      expect(select(elements[1], options)).to.equal('body > div:contains("second")')
+      expect(select(elements[2], options)).to.equal('body > div:contains("third")')
+      expect(select(elements[3], options)).to.equal('body > div:contains("forth one")')
 
       options.ignore = { contains: 'on' }
       expect(select(elements[0], options)).to.equal('body > div:contains("first")')
