@@ -40,7 +40,7 @@ export const initOptions = (options = {}) => ({
  * @param  {Options}     [options] - [description]
  * @return {Array.<Pattern>}       - [description]
  */
-export default function match (node, options = {}) {
+export default function match (node, options = {}, nested = false) {
   options = initOptions(options)
   const { root, skip, ignore, format } = options
 
@@ -89,7 +89,7 @@ export default function match (node, options = {}) {
         checkTag(element, path, options, select, toString)
       }
 
-      if (path.length === length && [1, 'xpath'].includes(format)) {
+      if (path.length === length && [1, 'xpath'].includes(format) && !nested) {
         checkRecursiveDescendants(element, path, options, select, toString)
       }
 
@@ -383,7 +383,7 @@ const checkRecursiveDescendants = (element, path, options, select, toString) => 
 
   const descendants = Array.from(element.querySelectorAll('*'))
   while (descendants.length > 0) {
-    const descendantPath = match(descendants.shift(), { ...options, root: element })
+    const descendantPath = match(descendants.shift(), { ...options, root: element }, true)
     // avoid descendant selectors with nth-child
     if (!descendantPath.some(pattern => pattern.pseudo.some(p => p.startsWith('nth-child')))) {
       const parent = element.parentElement
