@@ -89,7 +89,7 @@ export default function match (node, options = {}, nested = false) {
         checkTag(element, path, options, select, toString)
       }
 
-      if (path.length === length && [1, 'xpath'].includes(format) && !nested) {
+      if (path.length === length && [1, 'xpath'].includes(format) && !nested && element === node) {
         checkRecursiveDescendants(element, path, options, select, toString)
       }
 
