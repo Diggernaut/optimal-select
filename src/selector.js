@@ -59,8 +59,14 @@ select[1] = select.xpath
 /**
 * 
 * @param {Options} options 
-* @returns {(selector: string, parent: HTMLElement) => string}
+* @returns {(selector: string, parent: HTMLElement) => Array.<HTMLElement>}
 */
 export const getSelect = (options = {}) =>
-  (selector, parent) => select[options.format || 'css'](selector, parent || options.root)
+  (selector, parent) => {
+    try {
+      return select[options.format || 'css'](selector, parent || options.root)
+    } catch (err) {
+      return []
+    }
+  }
 

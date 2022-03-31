@@ -856,3 +856,12 @@ exports[`Baseline reference : jQuery : generates selector string : div.sidebar >
 exports[`Baseline reference : jQuery : generates selector string : div.sidebar > div:nth-child(5) div.block-content ul.listing li.show-all 1`] = "div.sidebar div:contains(\"Recently created public topics\") li.show-all";
 exports[`Baseline reference : jQuery : generates selector string : a[href="/topics?scope=public"] 1`] = "a[href=\"\\/topics\\?scope\\=public\"]";
 exports[`Baseline reference : jQuery : generates selector string : div#push 1`] = "div#push";
+exports[`Baseline reference : CSS : generates selector string : div#wrap > div:nth-child(4) 1`] = "div#wrap > div:nth-child(4)";
+exports[`Baseline reference : XPath : generates selector string : div#wrap > div:nth-child(4) 1`] = ".//div[@id=\"wrap\"]/div[(count(preceding-sibling::*)+1) = 4]";
+exports[`Baseline reference : jQuery : generates selector string : div#wrap > div:nth-child(4) 1`] = "div#wrap > div:nth-child(4)";
+exports[`Baseline reference : CSS : generates selector string : div#MscrmControls.Containers.DashboardControl-2701de62-8f2a-48a4-8262-4a35ca7441fa_0_0_0 1`] = "div#MscrmControls\\.Containers\\.DashboardControl-2701de62-8f2a-48a4-8262-4a35ca7441fa_0_0_0";
+exports[`Baseline reference : XPath : generates selector string : div#MscrmControls.Containers.DashboardControl-2701de62-8f2a-48a4-8262-4a35ca7441fa_0_0_0 1`] = ".//div[@id=\"MscrmControls.Containers.DashboardControl-2701de62-8f2a-48a4-8262-4a35ca7441fa_0_0_0\"]";
+exports[`Baseline reference : jQuery : generates selector string : div#MscrmControls.Containers.DashboardControl-2701de62-8f2a-48a4-8262-4a35ca7441fa_0_0_0 1`] = "div#MscrmControls\\.Containers\\.DashboardControl-2701de62-8f2a-48a4-8262-4a35ca7441fa_0_0_0";
+exports[`Baseline reference : CSS : generates selector string : div[id="3_outer"] 1`] = "div[id=\"3_outer\"]";
+exports[`Baseline reference : XPath : generates selector string : div[id="3_outer"] 1`] = ".//div[@id=\"3_outer\"]";
+exports[`Baseline reference : jQuery : generates selector string : div[id="3_outer"] 1`] = "div[id=\"3_outer\"]";

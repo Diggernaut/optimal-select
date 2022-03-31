@@ -1,3 +1,4 @@
+import { isValidCSSIdentifier } from './utilities'
 /**
  * @typedef  {Object} Pattern
  * @property {('descendant' | 'child')}                  [relates]
@@ -25,11 +26,11 @@ export const createPattern = (base = {}) =>
  */
 export const attributesToSelector = (attributes) =>
   attributes.map(({ name, value }) => {
-    if (name === 'id') {
-      return `#${value}`
-    }
     if (value === null) {
       return `[${name}]`
+    }
+    if (name === 'id' && isValidCSSIdentifier(value)) {
+      return `#${value}`
     }
     return `[${name}="${value}"]`
   }).join('')
@@ -40,7 +41,8 @@ export const attributesToSelector = (attributes) =>
  * @param {Array.<string>} classes 
  * @returns {string}
  */
-export const classesToSelector = (classes) => classes.length ? `.${classes.join('.')}` : ''
+export const classesToSelector = (classes) =>
+  classes.map(c => isValidCSSIdentifier(c) ? `.${c}` : `[class~="${c}"]`).join('')
 
 /**
  * Convert pseudo selectors to CSS selector

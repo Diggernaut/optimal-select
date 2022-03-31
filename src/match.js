@@ -213,6 +213,9 @@ const findAttributesPattern = (priority, element, ignore, select, toString, pare
     switch (attributeName) {
       case 'class': {
         let classNames = attributeValue.trim().split(/\s+/g)
+        if (!classNames[0]) { // empty string
+          break
+        }
         const classIgnore = ignore.class || defaultIgnore.class
         if (classIgnore) {
           classNames = classNames.filter(className => !classIgnore(className))
