@@ -135,21 +135,34 @@ const checkAttributes = (element, path, { priority, ignore }, select, toString, 
 }
 
 /**
- * Get combinations
- *
- * @param  {Array.<string>} values   - [description]
- * @return {Array.<string>?}        - [description]
+ * Calculates array of combinations of items in input array.
+ * @param  {Array.<any>} values   - array of values
+ * @param  {Object} options       - options: min - minimum subset size; max - maximum subset size
+ * @return {Array.<Array.<any>>?}   array of subsets
  */
-const combinations = (values) => {
-  let result = [[]]
+export const combinations = (values, options) => {
+  const { min, max } = options || {}
+  const result = [[]]
 
-  values.forEach(c => {
-    result.forEach(r => result.push(r.concat(c)))
+  values.forEach(v => {
+    result.forEach(r => {
+      if (!max || r.length < max) {
+        result.push(r.concat(v))
+      }
+    })
   })
 
   result.shift()
-  return result
+  return min ? result.filter(r => r.length >= min) : result
 }
+
+// limit subset size to increase performance
+const maxSubsetSize = [
+  { items: 13, max: 1 },
+  { items: 10, max: 2 },
+  { items: 8, max: 3 },
+  { items: 5, max: 4 }
+]
 
 /**
  * Get class selector
@@ -162,7 +175,10 @@ const combinations = (values) => {
  * @return {Array.<string>?}        - [description]
  */
 const getClassSelector = (classes = [], select, toString, parent, base) => {
-  let result = combinations(classes)
+  const { max } =
+    maxSubsetSize.find(({ items }) => classes.length > items) || { max: classes.length }
+
+  let result = combinations(classes, { max })
 
   for(let i = 0; i < result.length; i++) {
     const pattern = toString.pattern({ ...base, classes: result[i] })
