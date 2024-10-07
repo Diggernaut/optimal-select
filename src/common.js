@@ -15,6 +15,7 @@
  * @param  {Options}              options  - [description]
  * @return {HTMLElement}                   - [description]
  */
+import { defaultIgnore, checkIgnore, escapeValue } from './match'
 export const getCommonAncestor = (elements, options = {}) => {
 
   const {
@@ -103,8 +104,12 @@ export const getCommonProperties = (elements, options = {}) => {
       const elementAttributes = element.attributes
       const attributes = Object.keys(elementAttributes).reduce((attributes, key) => {
         const attribute = elementAttributes[key]
-        const attributeName = attribute.name
-        if (attribute && attributeName !== 'class' && (!ignore.attribute || !ignore.attribute(attributeName, attribute.value))) {
+        const attributeName = escapeValue(attribute && attribute.name)
+        const attributeValue = escapeValue(attribute && attribute.value)
+        const useNamedIgnore = attributeName !== 'class'
+        const currentIgnore = (useNamedIgnore && ignore[attributeName]) || ignore.attribute
+        const currentDefaultIgnore = (useNamedIgnore && defaultIgnore[attributeName]) || defaultIgnore.attribute
+        if (attribute && attributeName !== 'class' && !checkIgnore(currentIgnore, attributeName, attributeValue, currentDefaultIgnore)) {
           attributes[attributeName] = attribute.value
         }
         return attributes
