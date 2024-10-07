@@ -14,8 +14,8 @@ import { escapeValue } from './utilities'
  * @typedef {import('./pattern').ToStringApi} Pattern
  */
 
-const defaultIgnore = {
-  attribute (attributeName) {
+export const defaultIgnore = {
+  attribute(attributeName) {
     return [
       'style',
       'data-reactid',
@@ -40,7 +40,7 @@ export const initOptions = (options = {}) => ({
  * @param  {Options}     [options] - [description]
  * @return {Array.<Pattern>}       - [description]
  */
-export default function match (node, options = {}, nested = false) {
+export default function match(node, options = {}, nested = false) {
   options = initOptions(options)
   const { root, skip, ignore, format } = options
 
@@ -180,7 +180,7 @@ const getClassSelector = (classes = [], select, toString, parent, base) => {
 
   let result = combinations(classes, { max })
 
-  for(let i = 0; i < result.length; i++) {
+  for (let i = 0; i < result.length; i++) {
     const pattern = toString.pattern({ ...base, classes: result[i] })
     const matches = select(pattern, parent)
     if (matches.length === 1) {
@@ -207,7 +207,7 @@ const findAttributesPattern = (priority, element, ignore, select, toString, pare
   var attributeNames = Object.keys(attributes).map((val) => attributes[val].name)
     .filter((a) => priority.indexOf(a) < 0)
 
-  var sortedKeys = [ ...priority, ...attributeNames ]
+  var sortedKeys = [...priority, ...attributeNames]
   var pattern = createPattern()
   pattern.tag = element.tagName.toLowerCase()
 
@@ -325,7 +325,7 @@ const checkNthChild = (element, path, { ignore }) => {
         `, child, ignore, childPattern)
       }
       childPattern.relates = 'child'
-      childPattern.pseudo = [`nth-child(${i+1})`]
+      childPattern.pseudo = [`nth-child(${i + 1})`]
       path.unshift(childPattern)
       return true
     }
@@ -370,7 +370,7 @@ const checkText = (element, path, { ignore }, select, toString, nested) => {
       break
     }
     contains.push(`contains("${text}")`)
-  
+
     const matches = select(toString.pattern({ ...pattern, pseudo: contains }), parent)
     if (matches.length === 1) {
       pattern.pseudo = contains
@@ -444,7 +444,7 @@ const findPattern = (element, { priority, ignore }, select, toString) => {
  * @param  {Function} defaultPredicate - [description]
  * @return {boolean}                   - [description]
  */
-const checkIgnore = (predicate, name, value, defaultPredicate) => {
+export const checkIgnore = (predicate, name, value, defaultPredicate) => {
   if (!value) {
     return true
   }
