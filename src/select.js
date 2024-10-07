@@ -131,7 +131,7 @@ export default function getQuerySelector(input, options = {}) {
     ? getMultiSelectorPath(input, options)
     : getSingleSelectorPath(input, options)
   if (Array.isArray(path)) {
-    return path.map(entry => entry.getQuerySelector(entry, options)).join(',')
+    return path.map(entry => getQuerySelector(entry, options)).join(',')
   }
   return getToString(options).path(path)
 }
