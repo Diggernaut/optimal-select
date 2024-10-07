@@ -1,13 +1,14 @@
 {
-  "name": "@letznav/optimal-select",
+  "name": "@diggernaut/optimal-select",
   "description": "Get efficient & robust CSS selectors for HTML elements",
-  "version": "4.3.2",
+  "version": "4.3.3",
   "author": "Stefan Dühring | Autarc <autarc@gmail.com>",
   "contributors": [
+    "Evgeniy Solomanidin | iapon <evgeniysolomain@gmail.com>",
     "LetzNav | LetzNav <info@letznav.com>"
   ],
   "bugs": {
-    "url": "https://github.com/sriniraju-letznav/optimal-select/issues"
+    "url": "https://github.com/diggernaut/optimal-select/issues"
   },
   "devDependencies": {
     "babel-loader": "7.1.5",
@@ -39,7 +40,7 @@
     "webpack": "^2.2.0-rc.2",
     "wicked-good-xpath": "^1.3.0"
   },
-  "homepage": "https://github.com/sriniraju-letznav/optimal-select",
+  "homepage": "https://github.com/diggernaut/optimal-select",
   "keywords": [
     "css",
     "path",
@@ -50,7 +51,7 @@
   "main": "dist/optimal-select.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/sriniraju-letznav/optimal-select.git"
+    "url": "https://github.com/diggernaut/optimal-select.git"
   },
   "scripts": {
     "check": "npm outdated -depth 0",

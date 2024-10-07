@@ -61,7 +61,8 @@ export const getCommonAncestor = (elements, options = {}) => {
  * @param  {Array.<HTMLElement>} elements - [description]
  * @return {Object}                       - [description]
  */
-export const getCommonProperties = (elements) => {
+export const getCommonProperties = (elements, options = {}) => {
+  const { ignore = {} } = options
 
   const commonProperties = {
     classes: [],
@@ -81,7 +82,7 @@ export const getCommonProperties = (elements) => {
     if (commonClasses !== undefined) {
       var classes = element.getAttribute('class')
       if (classes) {
-        classes = classes.trim().split(' ')
+        classes = classes.trim().split(' ').filter(cls => !ignore.class || !ignore.class(cls))
         if (!commonClasses.length) {
           commonProperties.classes = classes
         } else {
@@ -93,7 +94,6 @@ export const getCommonProperties = (elements) => {
           }
         }
       } else {
-        // TODO: restructure removal as 2x set / 2x delete, instead of modify always replacing with new collection
         delete commonProperties.classes
       }
     }
@@ -104,9 +104,7 @@ export const getCommonProperties = (elements) => {
       const attributes = Object.keys(elementAttributes).reduce((attributes, key) => {
         const attribute = elementAttributes[key]
         const attributeName = attribute.name
-        // NOTE: workaround detection for non-standard phantomjs NamedNodeMap behaviour
-        // (issue: https://github.com/ariya/phantomjs/issues/14634)
-        if (attribute && attributeName !== 'class') {
+        if (attribute && attributeName !== 'class' && (!ignore.attribute || !ignore.attribute(attributeName, attribute.value))) {
           attributes[attributeName] = attribute.value
         }
         return attributes
@@ -150,4 +148,3 @@ export const getCommonProperties = (elements) => {
 
   return commonProperties
 }
-

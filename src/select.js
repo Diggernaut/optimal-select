@@ -77,13 +77,13 @@ export const getMultiSelectorPath = (elements, options = {}) => {
   const ancestorPath = match(ancestor, options)
 
   // TODO: consider usage of multiple selectors + parent-child relation + check for part redundancy
-  const commonPath = getCommonPath(elements)
+  const commonPath = getCommonPath(elements, options)
   const descendantPattern = commonPath[0]
 
   const selectorPath = optimize([...ancestorPath, descendantPattern], elements, options)
   const selectorMatches = convertNodeList(select(toString.path(selectorPath)))
 
-  if (!elements.every((element) => selectorMatches.some((entry) => entry === element) )) {
+  if (!elements.every((element) => selectorMatches.some((entry) => entry === element))) {
     // TODO: cluster matches to split into similar groups for sub selections
     return console.warn(`
       The selected elements can't be efficiently mapped.
@@ -100,8 +100,9 @@ export const getMultiSelectorPath = (elements, options = {}) => {
  * @param  {Array.<HTMLElement>} elements  - [description]
  * @return {Array.<Pattern>}               - [description]
  */
-const getCommonPath = (elements) => {
-  const { classes, attributes, tag } = getCommonProperties(elements)
+const getCommonPath = (elements, options) => {
+  const { classes, attributes, tag } = getCommonProperties(elements, options)
+
 
   return [
     createPattern({
@@ -124,7 +125,7 @@ const getCommonPath = (elements) => {
  * @param  {Options}                                  [options] - [description]
  * @return {string}                                             - [description]
  */
-export default function getQuerySelector (input, options = {}) {
+export default function getQuerySelector(input, options = {}) {
   const path = (input.length && !input.name)
     ? getMultiSelectorPath(input, options)
     : getSingleSelectorPath(input, options)
