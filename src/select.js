@@ -130,7 +130,8 @@ export default function getQuerySelector(input, options = {}) {
   const path = (input.length && !input.name)
     ? getMultiSelectorPath(input, options)
     : getSingleSelectorPath(input, options)
-  if (Array.isArray(path) && typeof path[0] === HTMLElement) {
+
+  if (Array.isArray(path) && path.length > 0 && path[0] instanceof HTMLElement) {
     return path.map(entry => getQuerySelector(entry, options)).join(',')
   }
   return getToString(options).path(path)
