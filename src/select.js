@@ -129,6 +129,8 @@ export default function getQuerySelector(input, options = {}) {
   const path = (input.length && !input.name)
     ? getMultiSelectorPath(input, options)
     : getSingleSelectorPath(input, options)
-
+  if (Array.isArray(path)) {
+    return path.join(',')
+  }
   return getToString(options).path(path)
 }
