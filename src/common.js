@@ -15,7 +15,9 @@
  * @param  {Options}              options  - [description]
  * @return {HTMLElement}                   - [description]
  */
-import { defaultIgnore, checkIgnore, escapeValue } from './match'
+import { defaultIgnore, checkIgnore } from './match'
+import { escapeValue } from './utilities'
+
 export const getCommonAncestor = (elements, options = {}) => {
 
   const {
